@@ -1,22 +1,25 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        Map<Integer, Integer> freq = new HashMap<>();
+        int[] vis = new int[nums.length];
         int n = nums.length;
 
-        
-        for(int i = 0;i< n ;i++){
-            freq.put(nums[i] , freq.getOrDefault(nums[i] , 0 )+1  );
+        for (int i = 0; i < n; i++) {
+            if (vis[i] == 1) {
+                continue;
+            }
+            boolean found = false;
 
-
-        }
-        for(int i = 0 ;i< n ;i++){
-            if(freq.get(nums[i]) == 1){
+            for (int j = i + 1; j < n; j++) {
+                if (nums[i] == nums[j]) {
+                    vis[j] = 1;
+                    found = true;
+                }
+            }
+            if (found == false)
                 return nums[i];
 
-            }
         }
         return -1;
 
-        
     }
 }
